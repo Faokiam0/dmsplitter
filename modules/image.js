@@ -10,7 +10,7 @@ function getImagePopoutHeaderButtons(application, buttons) {
         class: "share-image-party",
         icon: "fas fa-user",
         onclick: () => {
-            let users = game.users.filter(user => user.id != game.user.id && user.getFlag("westmarch", "partyId") == game.user.getFlag("westmarch", "partyId"));
+            let users = game.users.filter(user => user.id != game.user.id && user.getFlag("dmsplitter", "partyId") == game.user.getFlag("dmsplitter", "partyId"));
             if(users.length > 0) {
                 application.shareImage({users: users.map(user => user.id)});
             }

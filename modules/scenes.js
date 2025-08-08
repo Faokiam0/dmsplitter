@@ -25,7 +25,7 @@ export function ScenesHooks() {
 
 function GoWithParty(destination){
     game.users.forEach(user => { 
-        if (user.getFlag("westmarch", "partyId") == game.user.getFlag("westmarch", "partyId")) {
+        if (user.getFlag("dmsplitter", "partyId") == game.user.getFlag("dmsplitter", "partyId")) {
             game.socket.emit("pullToScene", destination.id, user.id);
         }
     });

@@ -71,13 +71,13 @@ function changeTab() {
 }
 
 function isPartyMember(user) {
-    return user.getFlag("westmarch", "partyId") == game.user.getFlag("westmarch", "partyId") || !game.user.getFlag("westmarch", "partyId");
+    return user.getFlag("dmsplitter", "partyId") == game.user.getFlag("dmsplitter", "partyId") || !game.user.getFlag("dmsplitter", "partyId");
 }
 
 function renderSceneConfig(app, html, data) {
-    $(html).find('.form-group')[2].insertAdjacentHTML('afterend', ('<div class="form-group"><label>WebHook</label><div class="form-fields"><input type="text" name="flags.webhook" value="'+app.object.getFlag("westmarch", "webhook")+'"></div></div>'));
+    $(html).find('.form-group')[2].insertAdjacentHTML('afterend', ('<div class="form-group"><label>WebHook</label><div class="form-fields"><input type="text" name="flags.webhook" value="'+app.object.getFlag("dmsplitter", "webhook")+'"></div></div>'));
     $(html).find('input[name="flags.webhook"]').on('change', function() {
-        app.object.setFlag("westmarch", "webhook", $(this).val());
+        app.object.setFlag("dmsplitter", "webhook", $(this).val());
     });
 }
 
@@ -85,7 +85,7 @@ function chatMessage(chatLog, message, chatData) {
     if(chatData.speaker.actor == null)
         return;
 
-    var webhook = game.scenes.get(game.users.get(chatData.user).viewedScene).getFlag("westmarch", "webhook")
+    var webhook = game.scenes.get(game.users.get(chatData.user).viewedScene).getFlag("dmsplitter", "webhook")
     if(webhook && message) {
         let content = turndown.turndown(message);
         let data = {

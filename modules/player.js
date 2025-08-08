@@ -12,13 +12,13 @@ export function PlayerHooks() {
         });
         $(html).find('.player.gm').each((index, gmElement) => {
             var user = game.users.get(gmElement.dataset.userId);
-            if(user.getFlag('westmarch', 'partyId') === user.id) { 
+            if(user.getFlag('dmsplitter', 'partyId') === user.id) { 
                 gmElement.insertAdjacentHTML('beforebegin', '<hr style="border: 1px solid '+$(gmElement).find('span').css('background-color')+'"/>');
             }
-            if(user.getFlag('westmarch', 'partyId') === user.id) {
+            if(user.getFlag('dmsplitter', 'partyId') === user.id) {
                 var lastElement = gmElement;
                 $(html).find('.player').each((index, playerElement) => {
-                    if(playerElement.dataset.userId !== gmElement.dataset.userId && game.users.get(gmElement.dataset.userId).getFlag('westmarch', 'partyId') == game.users.get(playerElement.dataset.userId).getFlag('westmarch', 'partyId')) {
+                    if(playerElement.dataset.userId !== gmElement.dataset.userId && game.users.get(gmElement.dataset.userId).getFlag('dmsplitter', 'partyId') == game.users.get(playerElement.dataset.userId).getFlag('dmsplitter', 'partyId')) {
                         let clone = playerElement.cloneNode(true);
                         gmElement.insertAdjacentElement('afterend', clone);
                         playerElement.remove();
@@ -37,63 +37,63 @@ export function PlayerHooks() {
             name: "Create Party",
             icon: '<i class="fa-solid fa-users"></i>',
             callback: li => {
-                game.user.setFlag("westmarch", "partyId",  game.user.id).then(() => { 
+                game.user.setFlag("dmsplitter", "partyId",  game.user.id).then(() => { 
                     ReloadChat();
                     appPlayerList.render();
                 });
             },
-            condition: li => game.users.get(li.data("userId")).isGM && game.user.id == li.data("userId") && game.user.id != game.user.getFlag('westmarch', 'partyId')
+            condition: li => game.users.get(li.data("userId")).isGM && game.user.id == li.data("userId") && game.user.id != game.user.getFlag('dmsplitter', 'partyId')
         });
         contextMenu.push({
             name: "Join Party",
             icon: '<i class="fa-solid fa-user-plus"></i>',
             callback: li => {
-                game.user.setFlag("westmarch", "partyId",  li.data("userId")).then(() => { 
+                game.user.setFlag("dmsplitter", "partyId",  li.data("userId")).then(() => { 
                     ReloadChat();
                     appPlayerList.render();
                 });
             },
-            condition: li => game.users.get(li.data("userId")).isGM && game.users.get(li.data("userId")).getFlag('westmarch', 'partyId') == li.data("userId") && game.user.id != li.data("userId")
+            condition: li => game.users.get(li.data("userId")).isGM && game.users.get(li.data("userId")).getFlag('dmsplitter', 'partyId') == li.data("userId") && game.user.id != li.data("userId")
         });
         contextMenu.push({
             name: "Leave Party",
             icon: '<i class="fa-solid fa-user-minus"></i>',
             callback: li => {
-                if(game.user.isGM && game.user.id == game.user.getFlag('westmarch', 'partyId')) {
+                if(game.user.isGM && game.user.id == game.user.getFlag('dmsplitter', 'partyId')) {
                     game.users.forEach(user => { 
-                        if(user.getFlag("westmarch", "partyId") == game.user.id) {
-                            user.unsetFlag("westmarch", "partyId");
+                        if(user.getFlag("dmsplitter", "partyId") == game.user.id) {
+                            user.unsetFlag("dmsplitter", "partyId");
                         }
                     });
                 }
-                game.user.unsetFlag("westmarch", "partyId").then(() => {
+                game.user.unsetFlag("dmsplitter", "partyId").then(() => {
                     ReloadChat();
                     appPlayerList.render();
                 });
             },
-            condition: li => game.user.id == li.data("userId") && game.users.get(li.data("userId")).getFlag('westmarch', 'partyId')
+            condition: li => game.user.id == li.data("userId") && game.users.get(li.data("userId")).getFlag('dmsplitter', 'partyId')
         });
         contextMenu.push({
             name: "Kick Party",
             icon: '<i class="fa-solid fa-users-slash"></i>',
             callback: li => {
-                game.users.get(li.data("userId")).unsetFlag("westmarch", "partyId").then(() => { 
+                game.users.get(li.data("userId")).unsetFlag("dmsplitter", "partyId").then(() => { 
                     ReloadChat();
                     appPlayerList.render();
                 });
             },
-            condition: li => game.user.isGM && game.users.get(li.data("userId")).getFlag('westmarch', 'partyId') && game.user.id != li.data("userId")
+            condition: li => game.user.isGM && game.users.get(li.data("userId")).getFlag('dmsplitter', 'partyId') && game.user.id != li.data("userId")
         });
         contextMenu.push({
             name: "Invite Party",
             icon: '<i class="fa-solid fa-user-tag"></i>',
             callback: li => {
-                game.users.get(li.data("userId")).setFlag("westmarch", "partyId", game.user.getFlag('westmarch', 'partyId')).then(() => { 
+                game.users.get(li.data("userId")).setFlag("dmsplitter", "partyId", game.user.getFlag('dmsplitter', 'partyId')).then(() => { 
                     ReloadChat();
                     appPlayerList.render();
                 });
             },
-            condition: li => game.user.isGM && game.users.get(li.data("userId")).getFlag('westmarch', 'partyId') != game.user.getFlag('westmarch', 'partyId') && game.user.id != li.data("userId")
+            condition: li => game.user.isGM && game.users.get(li.data("userId")).getFlag('dmsplitter', 'partyId') != game.user.getFlag('dmsplitter', 'partyId') && game.user.id != li.data("userId")
         });
     });
 }
